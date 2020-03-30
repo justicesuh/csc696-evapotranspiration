@@ -11,6 +11,12 @@
     let width = 975;
     let height = 610;
 
+    let bar = d3.select('body')
+        .append('div')
+        .style('width', '650px')
+        .style('height', '25px')
+        .style('border', '1px solid black');
+
     let svg = d3.select('body')
         .append('svg')
         .attr('width', width)
@@ -18,12 +24,50 @@
 
     let path = d3.geoPath();
 
+    let colors = [
+        '#fdfffe',
+        '#ee99c0',
+        '#dd2e93',
+        '#703a92',
+        '#2a78ba',
+        '#00b9ef',
+        '#11b289',
+        '#14ae4e',
+        '#cad940',
+        '#f8d73c',
+        '#ee9f3a',
+        '#c86d34',
+        '#882927',
+    ];
+    let selectedColor = colors[0];
+
     Promise.all([
-            d3.json('us.json')
+            d3.json('us.json'),
+            d3.csv('data.csv')
         ])
         .then(ready);
 
-    function ready([us]) {
+    function ready([us, data]) {
+        let countyMap = {};
+        data.forEach(d => {
+            countyMap[d.id] = d.color;
+        });
+
+        bar.selectAll('div')
+            .data(colors)
+            .enter()
+            .append('div')
+            .style('width', '50px')
+            .style('height', '25px')
+            .style('display', 'inline-block')
+            .style('background-color', d => {
+                return d;
+            })
+            .on('click', d => {
+                selectedColor = d;
+                console.log(`Setting color to ${selectedColor}`);
+            });
+
         svg.append('g')
             .attr('class', 'counties')
             .attr('fill', 'none')
@@ -31,13 +75,18 @@
             .data(topojson.feature(us, us.objects.counties).features)
             .enter()
             .append('path')
-            .attr('fill', '#d3d3d3')
+            .attr('fill', '#fdfffe')
             .attr('stroke', '#808080')
             .attr('stroke-weight', '1px')
-            .attr('d', path);
+            .attr('d', path)
+            .on('click', function(d) {
+                d3.select(this).attr('fill', selectedColor);
+                countyMap[d.id] = selectedColor;
+                console.log(countyMap);
+            });
 
         svg.append('path')
-            .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+            .datum(topojson.mesh(us, us.objects.states, (a, b) => { return a !== b; }))
             .attr('class', 'states')
             .attr('fill', 'none')
             .attr('stroke', '#000')
