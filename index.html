@@ -8,8 +8,8 @@
 </head>
 <body>
 <script>
-    let width = 1920;
-    let height = 1200;
+    let width = 975;
+    let height = 610;
 
     let svg = d3.select('body')
         .append('svg')
@@ -41,6 +41,15 @@
             .attr('class', 'states')
             .attr('fill', 'none')
             .attr('stroke', '#000')
+            .attr('stroke-width', '1px')
+            .attr('d', path);
+
+        svg.append('path')
+            .datum(topojson.mesh(us, us.objects.nation))
+            .attr('class', 'nation')
+            .attr('fill', 'none')
+            .attr('stroke', '#000')
+            .attr('stroke-width', '1px')
             .attr('d', path);
     }
 </script>
