@@ -25,19 +25,12 @@
     let path = d3.geoPath();
 
     let colors = [
-        '#fdfffe',
-        '#ee99c0',
-        '#dd2e93',
-        '#703a92',
-        '#2a78ba',
-        '#00b9ef',
-        '#11b289',
-        '#14ae4e',
-        '#cad940',
-        '#f8d73c',
-        '#ee9f3a',
-        '#c86d34',
-        '#882927',
+        '#feedde',
+        '#fdd0a2',
+        '#fdae6b',
+        '#fd8d3c',
+        '#e6550d',
+        '#a63603'
     ];
 
     let colorScale = d3.scaleQuantize()
@@ -85,6 +78,13 @@
             .attr('stroke', '#000')
             .attr('stroke-width', '1px')
             .attr('d', path);
+
+        svg.append('rect')
+            .attr('x', '0px')
+            .attr('y', '510px')
+            .attr('width', '300px')
+            .attr('height', '100px')
+            .attr('fill', '#fff');
     }
 </script>
 </body>
