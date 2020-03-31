@@ -4,18 +4,12 @@
   <title>Evapotranspiration</title>
   <meta charset="UTF-8">
   <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="https://d3js.org/topojson.v2.min.js"></script>
+  <script src="https://d3js.org/topojson.v3.min.js"></script>
 </head>
 <body>
 <script>
     let width = 975;
     let height = 610;
-
-    // let bar = d3.select('body')
-    //     .append('div')
-    //     .style('width', '650px')
-    //     .style('height', '25px')
-    //     .style('border', '1px solid black');
 
     let svg = d3.select('body')
         .append('svg')
@@ -85,6 +79,15 @@
             .attr('width', '300px')
             .attr('height', '100px')
             .attr('fill', '#fff');
+
+        colors.forEach((color, i) => {
+            svg.append('rect')
+                .attr('width', '25px')
+                .attr('height', '10px')
+                .attr('x', `${i * 25 + 650}px`)
+                .attr('y', '50px')
+                .attr('fill', color);
+        });
     }
 </script>
 </body>
