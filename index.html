@@ -18,6 +18,22 @@
 
     let path = d3.geoPath();
 
+    // let colors = [
+    //     '#fdfffe',
+    //     '#ee99c0',
+    //     '#dd2e93',
+    //     '#703a92',
+    //     '#2a78ba',
+    //     '#00b9ef',
+    //     '#11b289',
+    //     '#14ae4e',
+    //     '#cad940',
+    //     '#f8d73c',
+    //     '#ee9f3a',
+    //     '#c86d34',
+    //     '#882927',
+    // ];
+
     let colors = [
         '#fee5d9',
         '#fcbba1',
@@ -84,8 +100,8 @@
             svg.append('rect')
                 .attr('width', '25px')
                 .attr('height', '10px')
-                .attr('x', `${i * 25 + 650}px`)
-                .attr('y', '50px')
+                .attr('x', `${i * 25 + 550}px`)
+                .attr('y', '35px')
                 .attr('fill', color);
         });
     }
